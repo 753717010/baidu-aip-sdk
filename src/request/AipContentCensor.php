@@ -15,11 +15,12 @@
 * the License.
 */
 
-require_once 'AipImageCensor.php';
+namespace cje\BaiduAIP\request;
 
 /**
  * 内容审核
  */
-class AipContentCensor extends AipImageCensor{
+class AipContentCensor extends AipImageCensor
+{
 
 }

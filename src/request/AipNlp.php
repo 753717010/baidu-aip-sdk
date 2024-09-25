@@ -15,8 +15,10 @@
 * the License.
 */
 
-require_once 'lib/AipBase.php';
-class AipNlp extends AipBase {
+namespace cje\BaiduAIP\request;
+
+class AipNlp extends Api
+{
 
     /**
      * 词法分析 lexer api url
@@ -107,7 +109,9 @@ class AipNlp extends AipBase {
      * @param $content string
      * @return mixed
      */
-    protected function proccessResult($content){
+    protected function result($content)
+    {
+        $content = json_encode($content);
         return json_decode(mb_convert_encoding($content, 'UTF8', 'GBK'), true, 512, JSON_BIGINT_AS_STRING);
     }
 
@@ -119,16 +123,17 @@ class AipNlp extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function lexer($text, $options=array()){
+    public function lexer($text, $options = array())
+    {
 
         $data = array();
-        
+
         $data['text'] = $text;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->lexerUrl, $data);
+        return $this->post($this->lexerUrl, $data);
     }
 
     /**
@@ -139,16 +144,17 @@ class AipNlp extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function lexerCustom($text, $options=array()){
+    public function lexerCustom($text, $options = array())
+    {
 
         $data = array();
-        
+
         $data['text'] = $text;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->lexerCustomUrl, $data);
+        return $this->post($this->lexerCustomUrl, $data);
     }
 
     /**
@@ -160,16 +166,17 @@ class AipNlp extends AipBase {
      *   mode 模型选择。默认值为0，可选值mode=0（对应web模型）；mode=1（对应query模型）
      * @return array
      */
-    public function depParser($text, $options=array()){
+    public function depParser($text, $options = array())
+    {
 
         $data = array();
-        
+
         $data['text'] = $text;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->depParserUrl, $data);
+        return $this->post($this->depParserUrl, $data);
     }
 
     /**
@@ -180,16 +187,17 @@ class AipNlp extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function wordEmbedding($word, $options=array()){
+    public function wordEmbedding($word, $options = array())
+    {
 
         $data = array();
-        
+
         $data['word'] = $word;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->wordEmbeddingUrl, $data);
+        return $this->post($this->wordEmbeddingUrl, $data);
     }
 
     /**
@@ -200,16 +208,17 @@ class AipNlp extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function dnnlm($text, $options=array()){
+    public function dnnlm($text, $options = array())
+    {
 
         $data = array();
-        
+
         $data['text'] = $text;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->dnnlmCnUrl, $data);
+        return $this->post($this->dnnlmCnUrl, $data);
     }
 
     /**
@@ -222,17 +231,18 @@ class AipNlp extends AipBase {
      *   mode 预留字段，可选择不同的词义相似度模型。默认值为0，目前仅支持mode=0
      * @return array
      */
-    public function wordSimEmbedding($word1, $word2, $options=array()){
+    public function wordSimEmbedding($word1, $word2, $options = array())
+    {
 
         $data = array();
-        
+
         $data['word_1'] = $word1;
         $data['word_2'] = $word2;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->wordSimEmbeddingUrl, $data);
+        return $this->post($this->wordSimEmbeddingUrl, $data);
     }
 
     /**
@@ -245,17 +255,18 @@ class AipNlp extends AipBase {
      *   model 默认为"BOW"，可选"BOW"、"CNN"与"GRNN"
      * @return array
      */
-    public function simnet($text1, $text2, $options=array()){
+    public function simnet($text1, $text2, $options = array())
+    {
 
         $data = array();
-        
+
         $data['text_1'] = $text1;
         $data['text_2'] = $text2;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->simnetUrl, $data);
+        return $this->post($this->simnetUrl, $data);
     }
 
     /**
@@ -267,16 +278,17 @@ class AipNlp extends AipBase {
      *   type 评论行业类型，默认为4（餐饮美食）
      * @return array
      */
-    public function commentTag($text, $options=array()){
+    public function commentTag($text, $options = array())
+    {
 
         $data = array();
-        
+
         $data['text'] = $text;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->commentTagUrl, $data);
+        return $this->post($this->commentTagUrl, $data);
     }
 
     /**
@@ -287,16 +299,17 @@ class AipNlp extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function sentimentClassify($text, $options=array()){
+    public function sentimentClassify($text, $options = array())
+    {
 
         $data = array();
-        
+
         $data['text'] = $text;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->sentimentClassifyUrl, $data);
+        return $this->post($this->sentimentClassifyUrl, $data);
     }
 
     /**
@@ -308,17 +321,18 @@ class AipNlp extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function keyword($title, $content, $options=array()){
+    public function keyword($title, $content, $options = array())
+    {
 
         $data = array();
-        
+
         $data['title'] = $title;
         $data['content'] = $content;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->keywordUrl, $data);
+        return $this->post($this->keywordUrl, $data);
     }
 
     /**
@@ -330,17 +344,18 @@ class AipNlp extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function topic($title, $content, $options=array()){
+    public function topic($title, $content, $options = array())
+    {
 
         $data = array();
-        
+
         $data['title'] = $title;
         $data['content'] = $content;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->topicUrl, $data);
+        return $this->post($this->topicUrl, $data);
     }
 
     /**
@@ -351,16 +366,17 @@ class AipNlp extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function ecnet($text, $options=array()){
+    public function ecnet($text, $options = array())
+    {
 
         $data = array();
-        
+
         $data['text'] = $text;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->ecnetUrl, $data);
+        return $this->post($this->ecnetUrl, $data);
     }
 
     /**
@@ -372,16 +388,17 @@ class AipNlp extends AipBase {
      *   scene default（默认项-不区分场景），talk（闲聊对话-如度秘聊天等），task（任务型对话-如导航对话等），customer_service（客服对话-如电信/银行客服等）
      * @return array
      */
-    public function emotion($text, $options=array()){
+    public function emotion($text, $options = array())
+    {
 
         $data = array();
-        
+
         $data['text'] = $text;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->emotionUrl, $data);
+        return $this->post($this->emotionUrl, $data);
     }
 
     /**
@@ -394,16 +411,17 @@ class AipNlp extends AipBase {
      *   title 字符串（限200字符数）字符串仅支持GBK编码，长度需小于200字符数（即400字节），请输入前确认字符数没有超限，若字符数超长会返回错误。标题在算法中具有重要的作用，若文章确无标题，输入参数的“标题”字段为空即可
      * @return array
      */
-    public function newsSummary($content, $maxSummaryLen, $options=array()){
+    public function newsSummary($content, $maxSummaryLen, $options = array())
+    {
 
         $data = array();
-        
+
         $data['content'] = $content;
         $data['max_summary_len'] = $maxSummaryLen;
 
         $data = array_merge($data, $options);
         $data = mb_convert_encoding(json_encode($data), 'GBK', 'UTF8');
 
-        return $this->request($this->newsSummaryUrl, $data);
+        return $this->post($this->newsSummaryUrl, $data);
     }
 }

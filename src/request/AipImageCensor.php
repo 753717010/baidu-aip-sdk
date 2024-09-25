@@ -15,12 +15,13 @@
 * the License.
 */
 
-require_once 'lib/AipBase.php';
+namespace cje\BaiduAIP\request;
 
 /**
  * 黄反识别
  */
-class AipImageCensor extends AipBase{
+class AipImageCensor extends Api
+{
 
     /**
      * antiporn api url
@@ -66,65 +67,53 @@ class AipImageCensor extends AipBase{
     private $textCensorUserDefinedUrl = 'https://aip.baidubce.com/rest/2.0/solution/v1/text_censor/v2/user_defined';
 
     /**
-     * @param  string $image 图像读取
+     * @param string $image 图像读取
      * @return array
      */
-    public function antiPorn($image){
+    public function antiPorn($image)
+    {
 
         $data = array();
         $data['image'] = base64_encode($image);
 
-        return $this->request($this->antiPornUrl, $data);
+        return $this->post($this->antiPornUrl, $data);
     }
 
     /**
-     * @param  string $image 图像读取
+     * @param string $image 图像读取
      * @return array
      */
-    public function multi_antiporn($images){
-
-        $data = array();
-        foreach($images as $image){
-            $data[] = array(
-                'image' => base64_encode($image),
-            );
-        }
-
-        return $this->multi_request($this->antiPornUrl, $data);
-    }
-
-    /**
-     * @param  string $image 图像读取
-     * @return array
-     */
-    public function antiPornGif($image){
+    public function antiPornGif($image)
+    {
 
         $data = array();
         $data['image'] = base64_encode($image);
 
-        return $this->request($this->antiPornGifUrl, $data);
+        return $this->post($this->antiPornGifUrl, $data);
     }
 
     /**
-     * @param  string $image 图像读取
+     * @param string $image 图像读取
      * @return array
      */
-    public function antiTerror($image){
+    public function antiTerror($image)
+    {
 
         $data = array();
         $data['image'] = base64_encode($image);
 
-        return $this->request($this->antiTerrorUrl, $data);
+        return $this->post($this->antiTerrorUrl, $data);
     }
 
     /**
-     * @param  string $images 图像读取
+     * @param string $images 图像读取
      * @return array
      */
-    public function faceAudit($images, $configId=''){
+    public function faceAudit($images, $configId = '')
+    {
 
         // 非数组则处理为数组
-        if(!is_array($images)){
+        if (!is_array($images)) {
             $images = array(
                 $images,
             );
@@ -135,95 +124,94 @@ class AipImageCensor extends AipBase{
         );
 
         $isUrl = substr(trim($images[0]), 0, 4) === 'http';
-        if(!$isUrl){
+        if (!$isUrl) {
             $arr = array();
-            
-            foreach($images as $image){
+
+            foreach ($images as $image) {
                 $arr[] = base64_encode($image);
             }
             $data['images'] = implode(',', $arr);
-        }else{
+        } else {
             $urls = array();
-            
-            foreach($images as $url){
+
+            foreach ($images as $url) {
                 $urls[] = urlencode($url);
             }
-            
+
             $data['imgUrls'] = implode(',', $urls);
         }
 
-        return $this->request($this->faceAuditUrl, $data);
+        return $this->post($this->faceAuditUrl, $data);
     }
 
     /**
-     * @param  string $image 图像读取
+     * @param string $image 图像读取
      * @return array
      */
-    public function imageCensorComb($image, $scenes='antiporn', $options=array()){
+    public function imageCensorComb($image, $scenes = 'antiporn', $options = array())
+    {
 
         $scenes = !is_array($scenes) ? explode(',', $scenes) : $scenes;
-        
+
         $data = array(
             'scenes' => $scenes,
         );
 
         $isUrl = substr(trim($image), 0, 4) === 'http';
-        if(!$isUrl){
+        if (!$isUrl) {
             $data['image'] = base64_encode($image);
-        }else{
+        } else {
             $data['imgUrl'] = $image;
         }
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->imageCensorCombUrl, json_encode($data), array(
-            'Content-Type' => 'application/json',
-        ));
+        return $this->json($this->imageCensorCombUrl, $data);
     }
 
     /**
-     * @param  string $image 图像
+     * @param string $image 图像
      * @return array
      */
-    public function imageCensorUserDefined($image){
-        
+    public function imageCensorUserDefined($image)
+    {
         $data = array();
 
         $isUrl = substr(trim($image), 0, 4) === 'http';
-        if(!$isUrl){
+        if (!$isUrl) {
             $data['image'] = base64_encode($image);
-        }else{
+        } else {
             $data['imgUrl'] = $image;
         }
 
-        return $this->request($this->imageCensorUserDefinedUrl, $data);     
+        return $this->post($this->imageCensorUserDefinedUrl, $data);
     }
 
     /**
-     * @param  string $text
+     * @param string $text
      * @return array
      */
-    public function textCensorUserDefined($text){
-        
+    public function textCensorUserDefined($text)
+    {
         $data = array();
 
         $data['text'] = $text;
 
-        return $this->request($this->textCensorUserDefinedUrl, $data);     
+        return $this->post($this->textCensorUserDefinedUrl, $data);
     }
 
     /**
-     * @param  string $content
+     * @param string $content
      * @return array
      */
-    public function antiSpam($content, $options=array()){
-
+    public function antiSpam($content, $options = array())
+    {
         $data = array();
         $data['content'] = $content;
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->antiSpamUrl, $data);
+        return $this->post($this->antiSpamUrl, $data);
     }
 
 }

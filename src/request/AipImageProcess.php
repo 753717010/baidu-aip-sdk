@@ -15,8 +15,10 @@
 * the License.
 */
 
-require_once 'lib/AipBase.php';
-class AipImageProcess extends AipBase {
+namespace cje\BaiduAIP\request;
+
+class AipImageProcess extends Api
+{
 
     /**
      * 图像无损放大 image_quality_enhance api url
@@ -36,7 +38,6 @@ class AipImageProcess extends AipBase {
      */
     private $contrastEnhanceUrl = 'https://aip.baidubce.com/rest/2.0/image-process/v1/contrast_enhance';
 
-    
 
     /**
      * 图像无损放大接口
@@ -46,15 +47,16 @@ class AipImageProcess extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function imageQualityEnhance($image, $options=array()){
+    public function imageQualityEnhance($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->imageQualityEnhanceUrl, $data);
+        return $this->post($this->imageQualityEnhanceUrl, $data);
     }
 
     /**
@@ -65,15 +67,16 @@ class AipImageProcess extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function dehaze($image, $options=array()){
+    public function dehaze($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->dehazeUrl, $data);
+        return $this->post($this->dehazeUrl, $data);
     }
 
     /**
@@ -84,14 +87,15 @@ class AipImageProcess extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function contrastEnhance($image, $options=array()){
+    public function contrastEnhance($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->contrastEnhanceUrl, $data);
+        return $this->post($this->contrastEnhanceUrl, $data);
     }
 }

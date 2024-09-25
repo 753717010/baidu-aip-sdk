@@ -1,28 +1,21 @@
 {
-    "name": "baidu/aip-sdk",
-    "description": "baidu pulic ai php sdk",
+    "name": "cje/baidu-aip-sdk",
+    "description": "百度开放平台sdk",
     "authors": [
         {
-            "name": "baidu"
+            "name": "cje"
         }
     ],
-    "license": "Apache-2.0",
+    "license": "MIT",
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=7.2",
+        "ext-json": ">=1.0",
+        "ext-curl": "*",
+        "hanson/foundation-sdk": "^5.0"
     },
-    "minimum-stability": "stable",
     "autoload": {
-        "files": [
-            "lib/AipBase.php",
-            "AipBodyAnalysis.php",
-            "AipContentCensor.php",
-            "AipFace.php",
-            "AipImageClassify.php",
-            "AipImageSearch.php",
-            "AipKg.php",
-            "AipNlp.php",
-            "AipOcr.php",
-            "AipSpeech.php"
-        ]
+        "psr-4": {
+            "cje\\BaiduAIP\\": "src"
+        }
     }
 }

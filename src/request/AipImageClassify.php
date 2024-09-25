@@ -15,8 +15,10 @@
 * the License.
 */
 
-require_once 'lib/AipBase.php';
-class AipImageClassify extends AipBase {
+namespace cje\BaiduAIP\request;
+
+class AipImageClassify extends Api
+{
 
     /**
      * 通用物体识别 advanced_general api url
@@ -102,7 +104,6 @@ class AipImageClassify extends AipBase {
      */
     private $currencyUrl = 'https://aip.baidubce.com/rest/2.0/image-classify/v1/currency';
 
-    
 
     /**
      * 通用物体识别接口
@@ -113,15 +114,16 @@ class AipImageClassify extends AipBase {
      *   baike_num 返回百科信息的结果数，默认不返回
      * @return array
      */
-    public function advancedGeneral($image, $options=array()){
+    public function advancedGeneral($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->advancedGeneralUrl, $data);
+        return $this->post($this->advancedGeneralUrl, $data);
     }
 
     /**
@@ -135,15 +137,16 @@ class AipImageClassify extends AipBase {
      *   baike_num 返回百科信息的结果数，默认不返回
      * @return array
      */
-    public function dishDetect($image, $options=array()){
+    public function dishDetect($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->dishDetectUrl, $data);
+        return $this->post($this->dishDetectUrl, $data);
     }
 
     /**
@@ -156,15 +159,16 @@ class AipImageClassify extends AipBase {
      *   baike_num 返回百科信息的结果数，默认不返回
      * @return array
      */
-    public function carDetect($image, $options=array()){
+    public function carDetect($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->carDetectUrl, $data);
+        return $this->post($this->carDetectUrl, $data);
     }
 
     /**
@@ -176,15 +180,16 @@ class AipImageClassify extends AipBase {
      *   custom_lib 是否只使用自定义logo库的结果，默认false：返回自定义库+默认库的识别结果
      * @return array
      */
-    public function logoSearch($image, $options=array()){
+    public function logoSearch($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->logoSearchUrl, $data);
+        return $this->post($this->logoSearchUrl, $data);
     }
 
     /**
@@ -196,16 +201,17 @@ class AipImageClassify extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function logoAdd($image, $brief, $options=array()){
+    public function logoAdd($image, $brief, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
         $data['brief'] = $brief;
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->logoAddUrl, $data);
+        return $this->post($this->logoAddUrl, $data);
     }
 
     /**
@@ -216,15 +222,16 @@ class AipImageClassify extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function logoDeleteByImage($image, $options=array()){
+    public function logoDeleteByImage($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->logoDeleteUrl, $data);
+        return $this->post($this->logoDeleteUrl, $data);
     }
 
     /**
@@ -235,15 +242,16 @@ class AipImageClassify extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function logoDeleteBySign($contSign, $options=array()){
+    public function logoDeleteBySign($contSign, $options = array())
+    {
 
         $data = array();
-        
+
         $data['cont_sign'] = $contSign;
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->logoDeleteUrl, $data);
+        return $this->post($this->logoDeleteUrl, $data);
     }
 
     /**
@@ -256,15 +264,16 @@ class AipImageClassify extends AipBase {
      *   baike_num 返回百科信息的结果数，默认不返回
      * @return array
      */
-    public function animalDetect($image, $options=array()){
+    public function animalDetect($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->animalDetectUrl, $data);
+        return $this->post($this->animalDetectUrl, $data);
     }
 
     /**
@@ -276,15 +285,16 @@ class AipImageClassify extends AipBase {
      *   baike_num 返回百科信息的结果数，默认不返回
      * @return array
      */
-    public function plantDetect($image, $options=array()){
+    public function plantDetect($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->plantDetectUrl, $data);
+        return $this->post($this->plantDetectUrl, $data);
     }
 
     /**
@@ -296,15 +306,16 @@ class AipImageClassify extends AipBase {
      *   with_face 如果检测主体是人，主体区域是否带上人脸部分，0-不带人脸区域，其他-带人脸区域，裁剪类需求推荐带人脸，检索/识别类需求推荐不带人脸。默认取1，带人脸。
      * @return array
      */
-    public function objectDetect($image, $options=array()){
+    public function objectDetect($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->objectDetectUrl, $data);
+        return $this->post($this->objectDetectUrl, $data);
     }
 
     /**
@@ -315,15 +326,16 @@ class AipImageClassify extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function landmark($image, $options=array()){
+    public function landmark($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->landmarkUrl, $data);
+        return $this->post($this->landmarkUrl, $data);
     }
 
     /**
@@ -336,15 +348,16 @@ class AipImageClassify extends AipBase {
      *   baike_num 返回百科信息的结果数，默认不返回
      * @return array
      */
-    public function flower($image, $options=array()){
+    public function flower($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->flowerUrl, $data);
+        return $this->post($this->flowerUrl, $data);
     }
 
     /**
@@ -356,15 +369,16 @@ class AipImageClassify extends AipBase {
      *   top_num 返回预测得分top结果数，如果为空或小于等于0默认为5；如果大于20默认20
      * @return array
      */
-    public function ingredient($image, $options=array()){
+    public function ingredient($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->ingredientUrl, $data);
+        return $this->post($this->ingredientUrl, $data);
     }
 
     /**
@@ -375,15 +389,16 @@ class AipImageClassify extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function redwine($image, $options=array()){
+    public function redwine($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->redwineUrl, $data);
+        return $this->post($this->redwineUrl, $data);
     }
 
     /**
@@ -394,14 +409,15 @@ class AipImageClassify extends AipBase {
      * @description options列表:
      * @return array
      */
-    public function currency($image, $options=array()){
+    public function currency($image, $options = array())
+    {
 
         $data = array();
-        
+
         $data['image'] = base64_encode($image);
 
         $data = array_merge($data, $options);
 
-        return $this->request($this->currencyUrl, $data);
+        return $this->post($this->currencyUrl, $data);
     }
 }
