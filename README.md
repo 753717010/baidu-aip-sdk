@@ -9,6 +9,8 @@
 ```
 # 使用
 
+官方sdk貌似好久没有更新了，我这边自己添加一些新的方法进去
+
 ```php
 require 'vendor/autoload.php';
 $config = [
